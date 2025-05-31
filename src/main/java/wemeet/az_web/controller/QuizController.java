@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import wemeet.az_web.domain.Choice;
+import wemeet.az_web.dto.QuizResponse;
 import wemeet.az_web.service.QuizService;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class QuizController {
     private final QuizService quizService;
 
     @GetMapping("/quiz/{section}")
-    public List<Choice> getQuiz(@PathVariable Integer section) {
-
+    public List<QuizResponse> getQuiz(@PathVariable Integer section) {
+        return quizService.getQuiz(section);
     }
 }
