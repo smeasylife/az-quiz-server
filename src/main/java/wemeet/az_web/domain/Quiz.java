@@ -1,10 +1,10 @@
 package wemeet.az_web.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,7 +15,10 @@ public class Quiz {
 
     private String question;
 
-    private Boolean answer;
+    private Integer answerIndex;
 
     private Integer section;
+
+    @OneToMany(mappedBy = "choice")
+    private List<Choice> choices = new ArrayList<>();
 }
