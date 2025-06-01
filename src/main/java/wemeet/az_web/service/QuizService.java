@@ -37,4 +37,15 @@ public class QuizService {
 
         return quizResponses;
     }
+
+    public Quiz getQuizById(Long id) {
+        return quizRepository.findById(id).orElseThrow(()
+                -> new QuizNotFoundException("Quiz not found"));
+    }
+
+    public Boolean validateQuiz(Long quizId, Integer index) {
+        Quiz quiz = getQuizById(quizId);
+
+        return quiz.getAnswerIndex().equals(index);
+    }
 }

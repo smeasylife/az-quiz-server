@@ -1,10 +1,9 @@
 package wemeet.az_web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import wemeet.az_web.dto.QuizResponse;
 import wemeet.az_web.service.QuizService;
 
@@ -20,6 +19,11 @@ public class QuizController {
         return quizService.getQuiz(section);
     }
 
-    @PostMapping("/")
-    public
+    @PostMapping("/quiz/{quizId}/validate")
+    public ResponseEntity<String> validateQuiz(@PathVariable Long quizId, @RequestParam Integer index) {
+        if (quizService.validateQuiz(quizId, index)) {
+            return ResponseEntity.ok("Pass");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Wrong Answer");
+    }
 }
