@@ -2,9 +2,12 @@ package wemeet.az_web.dto;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class QuizResponse {
-    private String content;
+    private Long id;
+    private String question;
 
-    private Integer index;
+    private List<ChoiceDto> choiceDtos;
 }

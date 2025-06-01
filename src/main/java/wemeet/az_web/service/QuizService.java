@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wemeet.az_web.domain.Choice;
 import wemeet.az_web.domain.Quiz;
+import wemeet.az_web.dto.ChoiceDto;
 import wemeet.az_web.dto.QuizResponse;
 import wemeet.az_web.exception.QuizNotFoundException;
 import wemeet.az_web.repository.QuizRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,12 +19,22 @@ public class QuizService {
     private final QuizRepository quizRepository;
 
     public List<QuizResponse> getQuiz(Integer section) {
-        Quiz quiz = quizRepository.findBySection(section).orElseThrow(() ->
-                new QuizNotFoundException("Quiz not found with given section: " + section));
-        List<Choice> choices = quiz.getChoices();
+        List<Quiz> quizs = quizRepository.findBySection(section);
 
-        return choices.stream()
-                .map(choice -> new QuizResponse(choice.getContent(), choice.getIndex()))
-                .collect(Collectors.toList());
+        List<QuizResponse> quizResponses = new ArrayList<>();
+
+        for (Quiz quiz : quizs) {
+            List<ChoiceDto> choiceDtos = quiz.getChoices().stream()
+                    .map(choice -> new ChoiceDto(choice.getContent(), choice.getIndex()))
+                    .collect(Collectors.toList());
+
+            quizResponses.add(new QuizResponse(
+                    quiz.getId(),
+                    quiz.getQuestion(),
+                    choiceDtos
+            ));
+        }
+
+        return quizResponses;
     }
 }
