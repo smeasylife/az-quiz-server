@@ -12,9 +12,9 @@ public class Choice {
 
     private String content;
 
-    private Integer index;
+    private Integer choiceIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "choice_id")
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 }

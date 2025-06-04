@@ -19,6 +19,6 @@ public class Quiz {
 
     private Integer section;
 
-    @OneToMany(mappedBy = "choice")
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
     private List<Choice> choices = new ArrayList<>();
 }

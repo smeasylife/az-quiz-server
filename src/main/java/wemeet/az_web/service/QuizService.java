@@ -2,7 +2,6 @@ package wemeet.az_web.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import wemeet.az_web.domain.Choice;
 import wemeet.az_web.domain.Quiz;
 import wemeet.az_web.dto.ChoiceDto;
 import wemeet.az_web.dto.QuizResponse;
@@ -25,7 +24,7 @@ public class QuizService {
 
         for (Quiz quiz : quizs) {
             List<ChoiceDto> choiceDtos = quiz.getChoices().stream()
-                    .map(choice -> new ChoiceDto(choice.getContent(), choice.getIndex()))
+                    .map(choice -> new ChoiceDto(choice.getContent(), choice.getChoiceIndex()))
                     .collect(Collectors.toList());
 
             quizResponses.add(new QuizResponse(
